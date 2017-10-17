@@ -9,8 +9,6 @@ import './normalize.css';
 require('./favicon.ico'); // Tell webpack to load favicon.ico
 
 import initialState from './store/initialState';
-/* eslint-disable no-unused-vars */
-import * as api from './fruitsApi/api'; // Load API into global scope
 
 const store = configureStore(initialState);
 
