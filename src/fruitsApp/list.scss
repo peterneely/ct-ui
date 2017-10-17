@@ -1,10 +1,10 @@
 @import 'variables';
 
 .fruits-list-container {
-  border: $border;
-  border-radius: 4px;
-  height: 400px;
-  margin: 0 0 30px;
+  background: $contentColor;
+  border-bottom-left-radius: $borderRadius;
+  border-bottom-right-radius: $borderRadius;
+  height: 300px;
   padding: 30px;
   width: 400px;
   overflow-y: scroll;
@@ -19,6 +19,6 @@
     border-bottom: none;
   }
   &.mod-active {
-    background: $grey;
+    background: $borderColor;
   }
 }

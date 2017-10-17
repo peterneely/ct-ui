@@ -9,7 +9,7 @@ class Chart extends Component {
   componentWillReceiveProps(nextProps) {
     const { fruits } = nextProps;
     if (_.isEqual(fruits, this.props.fruits)) return;
-    const { orderedFruits, totalCount } = this._fruitParser.parseFruits(fruits);
+    const { orderedFruits, totalCount } = this._dataParser.parseFruits(fruits);
     setTimeout(() => this._chart.calcBarWidths(orderedFruits, totalCount), 50);
   }
 
@@ -26,7 +26,7 @@ class Chart extends Component {
     };
   })();
 
-  _fruitParser = (colorFactory => {
+  _dataParser = (colorFactory => {
     let orderedFruits = [];
     return {
       getOrderedFruits: () => orderedFruits,
@@ -50,7 +50,7 @@ class Chart extends Component {
     };
   })(this._colorFactory);
 
-  _chart = (fruitParser => {
+  _chart = (dataParser => {
     const { actions: { selectFruit }} = this.props;
     const handleClickBar = (fruitName, count) => () => {
       selectFruit(fruitName);
@@ -68,28 +68,26 @@ class Chart extends Component {
       },
       render: () => (
         <div>
-          {fruitParser.getOrderedFruits().map(({ fruitName, color, count }) => {
-            return (
-              <div
-                className={`fruits-chart-row ${this.props.selectedFruit === fruitName ? 'mod-active' : ''}`.trim()}
-                key={fruitName}
-                onClick={handleClickBar(fruitName, count)}
-              >
-                <div className="fruits-chart-column fruits-chart-name">{fruitName}</div>
-                <div className="fruits-chart-column fruits-chart-bar-container">
-                  <span
-                    className="fruits-chart-bar"
-                    style={{ background: color, width: this.state.barWidthsByFruitName[fruitName] || 0 }}
-                  />
-                </div>
-                <div className="fruits-chart-column fruits-chart-count">{count}</div>
+          {dataParser.getOrderedFruits().map(({ fruitName, color, count }) => (
+            <div
+              className={`fruits-chart-row ${this.props.selectedFruit === fruitName ? 'mod-active' : ''}`.trim()}
+              key={fruitName}
+              onClick={handleClickBar(fruitName, count)}
+            >
+              <div className="fruits-chart-column fruits-chart-name">{fruitName}</div>
+              <div className="fruits-chart-column fruits-chart-bar-container">
+                <span
+                  className="fruits-chart-bar"
+                  style={{ background: color, width: this.state.barWidthsByFruitName[fruitName] || 0 }}
+                />
               </div>
-            );
-          })}
+              <div className="fruits-chart-column fruits-chart-count">{count}</div>
+            </div>
+          ))}
         </div>
       ),
     };
-  })(this._fruitParser);
+  })(this._dataParser);
 
   render() {
     return (

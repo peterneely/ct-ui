@@ -17,8 +17,10 @@ class Fruits extends Component {
     const { actions, fruits, selectedFruit } = this.props;
     return (
       <div className="fruits-container">
-        <Chart actions={actions} fruits={fruits} selectedFruit={selectedFruit} />
-        <List fruits={fruits} selectedFruit={selectedFruit} />
+        <div className="fruits-content">
+          <Chart actions={actions} fruits={fruits} selectedFruit={selectedFruit} />
+          <List fruits={fruits} selectedFruit={selectedFruit} />
+        </div>
       </div>
     );
   }
