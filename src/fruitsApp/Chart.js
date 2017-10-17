@@ -13,7 +13,20 @@ class Chart extends Component {
     setTimeout(() => this._chart.calcBarWidths(orderedFruits, totalCount), 50);
   }
 
-  _fruitParser = (() => {
+  _colorFactory = (() => {
+    const letters = '0123456789ABCDEF';
+    return {
+      createRandomColor: () => {
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      },
+    };
+  })();
+
+  _fruitParser = (colorFactory => {
     let orderedFruits = [];
     return {
       getOrderedFruits: () => orderedFruits,
@@ -24,14 +37,18 @@ class Chart extends Component {
         const counts = _.map(fruitsByFruitName, fruits => fruits.length);
         const countsByFruitName = _.zipObject(fruitNames, counts);
         orderedFruits = _.chain(countsByFruitName)
-          .map((count, fruitName) => ({ fruitName, count: parseInt(count, 10) }))
+          .map((count, fruitName) => ({
+            fruitName,
+            color: colorFactory.createRandomColor(),
+            count: parseInt(count, 10),
+          }))
           .orderBy(['count'], ['desc'])
           .value();
         const totalCount = orderedFruits.reduce((total, fruit) => total + fruit.count, 0);
         return { orderedFruits, totalCount };
       },
     };
-  })();
+  })(this._colorFactory);
 
   _chart = (fruitParser => {
     const { actions: { selectFruit }} = this.props;
@@ -51,7 +68,7 @@ class Chart extends Component {
       },
       render: () => (
         <div>
-          {fruitParser.getOrderedFruits().map(({ fruitName, count }) => {
+          {fruitParser.getOrderedFruits().map(({ fruitName, color, count }) => {
             return (
               <div
                 className={`fruits-chart-row ${this.props.selectedFruit === fruitName ? 'mod-active' : ''}`.trim()}
@@ -62,7 +79,7 @@ class Chart extends Component {
                 <div className="fruits-chart-column fruits-chart-bar-container">
                   <span
                     className="fruits-chart-bar"
-                    style={{ width: this.state.barWidthsByFruitName[fruitName] || 0 }}
+                    style={{ background: color, width: this.state.barWidthsByFruitName[fruitName] || 0 }}
                   />
                 </div>
                 <div className="fruits-chart-column fruits-chart-count">{count}</div>
