@@ -2,8 +2,8 @@ import _ from 'lodash';
 import { createRandomColor } from './colorFactory';
 
 export default class ChartData {
-  constructor(fruits) {
-    this._fruits = fruits;
+  constructor(people) {
+    this._people = people;
   }
 
   _chartFruits = (() => {
@@ -13,14 +13,14 @@ export default class ChartData {
       if (!totalCount) return;
       const barWidthsByFruitName = {};
       orderedFruits.forEach(({ fruitName, count }) => {
-        barWidthsByFruitName[fruitName] = `${(count / totalCount) * 100}%`;
+        barWidthsByFruitName[fruitName] = `${parseInt((count / totalCount) * 100)}%`;
       });
       return barWidthsByFruitName;
     };
     return {
-      parseData: () => {
-        if (!this._fruits.length) return { orderedFruits: [], totalCount };
-        const fruitsByFruitName = _.groupBy(this._fruits, ({ favoriteFruit }) => favoriteFruit);
+      parse: () => {
+        if (!this._people.length) return { orderedFruits: [], totalCount: 0 };
+        const fruitsByFruitName = _.groupBy(this._people, ({ favoriteFruit }) => favoriteFruit);
         const fruitNames = _.keys(fruitsByFruitName);
         const counts = _.map(fruitsByFruitName, fruits => fruits.length);
         const countsByFruitName = _.zipObject(fruitNames, counts);
@@ -38,5 +38,5 @@ export default class ChartData {
     };
   })();
 
-  parseData = this._chartFruits.parseData;
+  parse = this._chartFruits.parse;
 }

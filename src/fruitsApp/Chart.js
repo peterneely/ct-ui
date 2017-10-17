@@ -8,14 +8,12 @@ class Chart extends Component {
   state = { barWidthsByFruitName: {}};
 
   componentWillReceiveProps(nextProps) {
-    const { fruits } = nextProps;
-    if (_.isEqual(fruits, this.props.fruits)) return;
-    const { calcBarWidths, orderedFruits } = new ChartData(fruits).parseData();
+    const { people } = nextProps;
+    if (_.isEqual(people, this.props.people)) return;
+    const { calcBarWidths, orderedFruits } = new ChartData(people).parse();
     this.orderedFruits = orderedFruits;
     setTimeout(() => this.setState({ barWidthsByFruitName: calcBarWidths() }), 50);
   }
-
-  orderedFruits = [];
 
   chart = (() => {
     const { actions: { selectFruit }} = this.props;
@@ -48,6 +46,8 @@ class Chart extends Component {
     };
   })();
 
+  orderedFruits = [];
+
   render() {
     return (
       <div className="fruits-chart-container">
@@ -59,7 +59,7 @@ class Chart extends Component {
 
 Chart.propTypes = {
   actions: PropTypes.object.isRequired,
-  fruits: PropTypes.arrayOf(PropTypes.object).isRequired,
+  people: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedFruit: PropTypes.string,
 };
 

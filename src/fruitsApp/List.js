@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './list.scss';
 
-const List = ({ fruits, selectedFruit }) => {
-  const visibleFruits = selectedFruit ? fruits.filter(({ favoriteFruit }) => favoriteFruit === selectedFruit) : fruits;
+const List = ({ people, selectedFruit }) => {
+  const visiblePeople = selectedFruit ? people.filter(({ favoriteFruit }) => favoriteFruit === selectedFruit) : people;
   return (
     <div className="fruits-list-container">
-      {visibleFruits.map((fruit, index) => {
-        const { name, favoriteFruit } = fruit;
+      {visiblePeople.map((person, index) => {
+        const { name, favoriteFruit } = person;
         return (
           <div className="fruits-list-item" key={index}>
             <span>{name}</span>
@@ -20,7 +20,7 @@ const List = ({ fruits, selectedFruit }) => {
 };
 
 List.propTypes = {
-  fruits: PropTypes.arrayOf(PropTypes.object).isRequired,
+  people: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedFruit: PropTypes.string,
 };
 

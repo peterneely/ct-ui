@@ -1,14 +1,14 @@
 import * as types from './types';
 import * as repo from './repo';
 
-export function getFruits() {
+export function getPeople() {
   return dispatch => {
-    repo.getFruits().then(fruits => {
-      dispatch({ type: types.GET_FRUITS, payload: fruits });
+    repo.getPeople().then(people => {
+      dispatch({ type: types.GET_PEOPLE, payload: people });
     });    
   };
 }
 
-export function selectFruit(index) {
-  return { type: types.SELECT_FRUIT, payload: index };
+export function selectFruit(fruitName) {
+  return { type: types.SELECT_FRUIT, payload: fruitName };
 }

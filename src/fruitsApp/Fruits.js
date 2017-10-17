@@ -9,17 +9,17 @@ import './fruits.scss';
 
 class Fruits extends Component {
   componentWillMount() {
-    const { actions: { getFruits }} = this.props;
-    getFruits();
+    const { actions: { getPeople }} = this.props;
+    getPeople();
   }
 
   render() {
-    const { actions, fruits, selectedFruit } = this.props;
+    const { actions, people, selectedFruit } = this.props;
     return (
       <div className="fruits-container">
         <div className="fruits-content">
-          <Chart actions={actions} fruits={fruits} selectedFruit={selectedFruit} />
-          <List fruits={fruits} selectedFruit={selectedFruit} />
+          <Chart actions={actions} people={people} selectedFruit={selectedFruit} />
+          <List people={people} selectedFruit={selectedFruit} />
         </div>
       </div>
     );
@@ -28,13 +28,13 @@ class Fruits extends Component {
 
 Fruits.propTypes = {
   actions: PropTypes.object.isRequired,
-  fruits: PropTypes.arrayOf(PropTypes.object).isRequired,
+  people: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedFruit: PropTypes.string,
 };
 
 function mapStateToProps(state) {
-  const { fruitsApp: { fruits, selectedFruit }} = state;
-  return { fruits, selectedFruit };
+  const { fruitsApp: { people, selectedFruit }} = state;
+  return { people, selectedFruit };
 }
 
 function mapDispatchToProps(dispatch) {

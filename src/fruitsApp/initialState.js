@@ -1,4 +1,4 @@
 export default {
-  fruits: [],
+  people: [],
   selectedFruit: null,
 };

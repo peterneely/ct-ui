@@ -1,7 +1,7 @@
 import api from '../fruitsApi/api';
 
-export function getFruits() {
+export function getPeople() {
   return new Promise(resolve => {
-    api.get(fruits => resolve(fruits));
+    api.get(people => resolve(people));
   });
 }
