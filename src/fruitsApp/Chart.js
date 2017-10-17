@@ -6,18 +6,18 @@ import './chart.scss';
 class Chart extends Component {
   state = { barWidthsByFruitName: {}};
 
-  componentWillReceiveProps(nextProps) {
-    if (!_.isEqual(nextProps.fruits, this.props.fruits)) this._chart.resetBarWidths();
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (!_.isEqual(nextProps.fruits, this.props.fruits)) this._chart.resetBarWidths();
+  // }
 
   _chart = (() => {
-    const calcBarWidths = ({ orderedFruits, totalCount }) => setTimeout(() => {
+    const calcBarWidths = (orderedFruits, totalCount) => {
       const barWidthsByFruitName = {};
       orderedFruits.forEach(({ fruitName, count }) => {
         barWidthsByFruitName[fruitName] = `${(count / totalCount) * 100}%`;
       });
       this.setState({ barWidthsByFruitName });
-    }, 50);
+    };
     const parseFruits = fruits => {
       const fruitsByFruitName = _.groupBy(fruits, ({ favoriteFruit }) => favoriteFruit);
       const fruitNames = _.keys(fruitsByFruitName);
@@ -31,12 +31,13 @@ class Chart extends Component {
       return { fruitsByFruitName, orderedFruits, totalCount };
     };
     return {
-      resetBarWidths: () => this.setState({ barWidthsByFruitName: {}}),
+      // resetBarWidths: () => this.setState({ barWidthsByFruitName: {}}),
       render: () => {
         const { fruits } = this.props;
+        const { barWidthsByFruitName } = this.state;
         const { fruitsByFruitName, orderedFruits, totalCount } = parseFruits(fruits);
-        console.log({ fruitsByFruitName, orderedFruits, totalCount });
-        calcBarWidths({ orderedFruits, totalCount })
+        // console.log({ fruitsByFruitName, orderedFruits, totalCount });
+        setTimeout(() => calcBarWidths(orderedFruits, totalCount), 50);        
         return (
           <div>
             {orderedFruits.map(({ fruitName, count }) => {
@@ -44,7 +45,7 @@ class Chart extends Component {
                 <div className="fruits-chart-row" key={fruitName}>
                   <div className="fruits-chart-column fruits-chart-name">{fruitName}</div>
                   <div className="fruits-chart-column fruits-chart-bar-container">
-                    <span className="fruits-chart-bar" style={{ width: this.state.barWidthsByFruitName[fruitName] || 0 }}></span>
+                    <span className="fruits-chart-bar" style={{ width: barWidthsByFruitName[fruitName] || 0 }}></span>
                   </div>
                   <div className="fruits-chart-column fruits-chart-count">{count}</div>
                 </div>
