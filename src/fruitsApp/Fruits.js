@@ -14,13 +14,11 @@ class Fruits extends Component {
   }
 
   render() {
-    const { actions, fruits } = this.props;
+    const { actions, fruits, selectedItemIndex } = this.props;
     return (
       <div className="fruits-container">
-        <div className="fruits-content">
-          <Chart actions={actions} fruits={fruits} />
-          <List actions={actions} fruits={fruits} />
-        </div>
+        <Chart actions={actions} fruits={fruits} />
+        <List actions={actions} fruits={fruits} selectedItemIndex={selectedItemIndex} />
       </div>
     );
   }
@@ -29,11 +27,12 @@ class Fruits extends Component {
 Fruits.propTypes = {
   actions: PropTypes.object.isRequired,
   fruits: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selectedItemIndex: PropTypes.number,
 };
 
 function mapStateToProps(state) {
-  const { fruitsApp: { fruits }} = state;
-  return { fruits };
+  const { fruitsApp: { fruits, selectedItemIndex }} = state;
+  return { fruits, selectedItemIndex };
 }
 
 function mapDispatchToProps(dispatch) {

@@ -1,11 +1,24 @@
 @import 'variables';
 
-.fruit-item {
-  &:first-child {
-    border-top: $border;
-  }
+.fruits-list-container {
+  border: $border;
+  border-radius: 4px;
+  height: 400px;
+  margin: 0 0 30px;
+  padding: 30px;
+  width: 400px;
+  overflow-y: scroll;
+}
+
+.fruits-list-item {
   border-bottom: $border;
   display: flex;
   justify-content: space-between;
   padding: 10px 0;
+  &:last-child {
+    border-bottom: none;
+  }
+  &.mod-active {
+    background: $grey;
+  }
 }

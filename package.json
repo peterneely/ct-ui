@@ -30,6 +30,7 @@
   "author": "Peter Neely",
   "license": "MIT",
   "dependencies": {
+    "lodash": "4.17.4",
     "normalize.css": "7.0.0",
     "object-assign": "4.1.0",
     "react": "16.0.0",

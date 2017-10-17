@@ -8,3 +8,7 @@ export function getFruits() {
     });    
   };
 }
+
+export function selectItem(index) {
+  return { type: types.SELECT_ITEM, payload: index };
+}

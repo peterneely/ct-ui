@@ -1,0 +1,25 @@
+@import 'variables';
+
+.fruits-chart-container {
+  border: $border;
+  border-radius: 4px;
+  // height: 400px;
+  margin: 30px 0 0;
+  padding: 30px;
+  width: 400px;
+}
+
+.fruits-chart-count {
+  display: inline-block;
+  flex: 1.5
+}
+
+.fruits-chart-name {
+  display: inline-block;
+  flex: 0.5
+}
+
+.fruits-chart-row {
+  display: flex;
+  padding: 10px 0;
+}

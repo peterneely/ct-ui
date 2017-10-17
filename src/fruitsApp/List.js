@@ -4,13 +4,18 @@ import './list.scss';
 
 class List extends Component {
   _list = (() => {
+    const { actions: { selectItem }} = this.props;
+    const handleClick = index => () => {
+      selectItem(index);
+    };
     return {
       render: () => {
-        const { fruits } = this.props;
+        const { fruits, selectedItemIndex } = this.props;
         return fruits.map((fruit, index) => {
           const { name, favoriteFruit } = fruit;
+          const className = `fruits-list-item ${selectedItemIndex === index ? 'mod-active' : ''}`.trim();
           return (
-            <div className="fruit-item" key={index}>
+            <div className={className} key={index} onClick={handleClick(index)}>
               <span>{name}</span>
               <span>{favoriteFruit}</span>
             </div>
@@ -22,7 +27,7 @@ class List extends Component {
 
   render() {
     return (
-      <div>
+      <div className="fruits-list-container">
         {this._list.render()}
       </div>
     );
@@ -32,6 +37,7 @@ class List extends Component {
 List.propTypes = {
   actions: PropTypes.object.isRequired,
   fruits: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selectedItemIndex: PropTypes.number,
 };
 
 export default List;
