@@ -19,7 +19,7 @@ export default class ChartData {
     };
     return {
       parse: () => {
-        if (!this._people.length) return { orderedFruits: [], totalCount: 0 };
+        if (!this._people.length) return { calcBarWidths: () => ({}), orderedFruits: [] };
         const fruitsByFruitName = _.groupBy(this._people, ({ favoriteFruit }) => favoriteFruit);
         const fruitNames = _.keys(fruitsByFruitName);
         const counts = _.map(fruitsByFruitName, fruits => fruits.length);
