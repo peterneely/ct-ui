@@ -3,23 +3,39 @@
 .fruits-chart-container {
   border: $border;
   border-radius: 4px;
-  // height: 400px;
   margin: 30px 0 0;
   padding: 30px;
   width: 400px;
 }
 
-.fruits-chart-count {
+.fruits-chart-bar-container {
+  border: $border;
+  flex: 1.25;
+  margin-left: 20px;
+}
+
+.fruits-chart-bar {
   display: inline-block;
-  flex: 1.5
+  background: red;
+  height: 100%;
+  width: 0;
+  transition: width 0.3s ease;
+}
+
+.fruits-chart-count {
+  flex: 0.25;
+  text-align: right;
 }
 
 .fruits-chart-name {
-  display: inline-block;
   flex: 0.5
 }
 
 .fruits-chart-row {
   display: flex;
   padding: 10px 0;
+}
+
+.fruits-chart-column {
+  display: inline-block;
 }
