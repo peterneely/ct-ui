@@ -6,56 +6,73 @@ import './chart.scss';
 class Chart extends Component {
   state = { barWidthsByFruitName: {}};
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (!_.isEqual(nextProps.fruits, this.props.fruits)) this._chart.resetBarWidths();
-  // }
+  componentWillReceiveProps(nextProps) {
+    const { fruits } = nextProps;
+    if (_.isEqual(fruits, this.props.fruits)) return;
+    const { orderedFruits, totalCount } = this._fruitParser.parseFruits(fruits);
+    setTimeout(() => this._chart.calcBarWidths(orderedFruits, totalCount), 50);
+  }
 
-  _chart = (() => {
-    const calcBarWidths = (orderedFruits, totalCount) => {
-      const barWidthsByFruitName = {};
-      orderedFruits.forEach(({ fruitName, count }) => {
-        barWidthsByFruitName[fruitName] = `${(count / totalCount) * 100}%`;
-      });
-      this.setState({ barWidthsByFruitName });
-    };
-    const parseFruits = fruits => {
-      const fruitsByFruitName = _.groupBy(fruits, ({ favoriteFruit }) => favoriteFruit);
-      const fruitNames = _.keys(fruitsByFruitName);
-      const counts = _.map(fruitsByFruitName, fruits => fruits.length);
-      const countsByFruitName = _.zipObject(fruitNames, counts);
-      const orderedFruits = _.chain(countsByFruitName)
-        .map((count, fruitName) => ({ fruitName, count: parseInt(count, 10) }))
-        .orderBy(['count'], ['desc'])
-        .value();
-      const totalCount = orderedFruits.reduce((total, fruit) => total + fruit.count, 0);
-      return { fruitsByFruitName, orderedFruits, totalCount };
-    };
+  _fruitParser = (() => {
+    let orderedFruits = [];
     return {
-      // resetBarWidths: () => this.setState({ barWidthsByFruitName: {}}),
-      render: () => {
-        const { fruits } = this.props;
-        const { barWidthsByFruitName } = this.state;
-        const { fruitsByFruitName, orderedFruits, totalCount } = parseFruits(fruits);
-        // console.log({ fruitsByFruitName, orderedFruits, totalCount });
-        setTimeout(() => calcBarWidths(orderedFruits, totalCount), 50);        
-        return (
-          <div>
-            {orderedFruits.map(({ fruitName, count }) => {
-              return (
-                <div className="fruits-chart-row" key={fruitName}>
-                  <div className="fruits-chart-column fruits-chart-name">{fruitName}</div>
-                  <div className="fruits-chart-column fruits-chart-bar-container">
-                    <span className="fruits-chart-bar" style={{ width: barWidthsByFruitName[fruitName] || 0 }}></span>
-                  </div>
-                  <div className="fruits-chart-column fruits-chart-count">{count}</div>
-                </div>
-              );
-            })}
-          </div>
-        );
+      getOrderedFruits: () => orderedFruits,
+      parseFruits: fruits => {
+        if (!fruits.length) return { orderedFruits: [], totalCount };
+        const fruitsByFruitName = _.groupBy(fruits, ({ favoriteFruit }) => favoriteFruit);
+        const fruitNames = _.keys(fruitsByFruitName);
+        const counts = _.map(fruitsByFruitName, fruits => fruits.length);
+        const countsByFruitName = _.zipObject(fruitNames, counts);
+        orderedFruits = _.chain(countsByFruitName)
+          .map((count, fruitName) => ({ fruitName, count: parseInt(count, 10) }))
+          .orderBy(['count'], ['desc'])
+          .value();
+        const totalCount = orderedFruits.reduce((total, fruit) => total + fruit.count, 0);
+        return { orderedFruits, totalCount };
       },
     };
   })();
+
+  _chart = (fruitParser => {
+    const { actions: { selectFruit }} = this.props;
+    const handleClickBar = (fruitName, count) => () => {
+      selectFruit(fruitName);
+      /* eslint-disable no-console */
+      console.log(`Fruit selected: ${fruitName}, ${count}`);
+    };
+    return {
+      calcBarWidths: (orderedFruits, totalCount) => {
+        if (!totalCount) return;
+        const barWidthsByFruitName = {};
+        orderedFruits.forEach(({ fruitName, count }) => {
+          barWidthsByFruitName[fruitName] = `${(count / totalCount) * 100}%`;
+        });
+        this.setState({ barWidthsByFruitName });
+      },
+      render: () => (
+        <div>
+          {fruitParser.getOrderedFruits().map(({ fruitName, count }) => {
+            return (
+              <div
+                className={`fruits-chart-row ${this.props.selectedFruit === fruitName ? 'mod-active' : ''}`.trim()}
+                key={fruitName}
+                onClick={handleClickBar(fruitName, count)}
+              >
+                <div className="fruits-chart-column fruits-chart-name">{fruitName}</div>
+                <div className="fruits-chart-column fruits-chart-bar-container">
+                  <span
+                    className="fruits-chart-bar"
+                    style={{ width: this.state.barWidthsByFruitName[fruitName] || 0 }}
+                  />
+                </div>
+                <div className="fruits-chart-column fruits-chart-count">{count}</div>
+              </div>
+            );
+          })}
+        </div>
+      ),
+    };
+  })(this._fruitParser);
 
   render() {
     return (
@@ -69,6 +86,7 @@ class Chart extends Component {
 Chart.propTypes = {
   actions: PropTypes.object.isRequired,
   fruits: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selectedFruit: PropTypes.string,
 };
 
 export default Chart;

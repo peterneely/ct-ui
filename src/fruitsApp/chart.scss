@@ -31,8 +31,12 @@
 }
 
 .fruits-chart-row {
+  cursor: pointer;
   display: flex;
   padding: 10px 0;
+  &.mod-active {
+    background: $grey;
+  }
 }
 
 .fruits-chart-column {

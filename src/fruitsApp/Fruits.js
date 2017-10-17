@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import * as fruitActions from './actions';
 import Chart from './Chart';
 import List from './List';
-import './fruits.scss'
+import './fruits.scss';
 
 class Fruits extends Component {
   componentWillMount() {
@@ -14,11 +14,11 @@ class Fruits extends Component {
   }
 
   render() {
-    const { actions, fruits, selectedItemIndex } = this.props;
+    const { actions, fruits, selectedFruit } = this.props;
     return (
       <div className="fruits-container">
-        <Chart actions={actions} fruits={fruits} />
-        <List actions={actions} fruits={fruits} selectedItemIndex={selectedItemIndex} />
+        <Chart actions={actions} fruits={fruits} selectedFruit={selectedFruit} />
+        <List fruits={fruits} selectedFruit={selectedFruit} />
       </div>
     );
   }
@@ -27,12 +27,12 @@ class Fruits extends Component {
 Fruits.propTypes = {
   actions: PropTypes.object.isRequired,
   fruits: PropTypes.arrayOf(PropTypes.object).isRequired,
-  selectedItemIndex: PropTypes.number,
+  selectedFruit: PropTypes.string,
 };
 
 function mapStateToProps(state) {
-  const { fruitsApp: { fruits, selectedItemIndex }} = state;
-  return { fruits, selectedItemIndex };
+  const { fruitsApp: { fruits, selectedFruit }} = state;
+  return { fruits, selectedFruit };
 }
 
 function mapDispatchToProps(dispatch) {

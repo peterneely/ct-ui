@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 (function(container) {
   var names = [
     'Chris', 'Svetla', 'Duncan', 'Vlad', 'Dennis', 'Amir', 'Kunjan', 'Aaron', 'Kirby', 'Michael',

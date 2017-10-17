@@ -1,4 +1,4 @@
 export default {
   fruits: [],
-  selectedItemIndex: null,
+  selectedFruit: null,
 };

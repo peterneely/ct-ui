@@ -6,8 +6,8 @@ export default function fruitsReducer(state = initialState, action) {
   switch (type) {
     case types.GET_FRUITS:
       return { ...state, fruits: payload };
-    case types.SELECT_ITEM:
-      return { ...state, selectedItemIndex: payload };
+    case types.SELECT_FRUIT:
+      return { ...state, selectedFruit: payload };
     default:
       return state;
   }

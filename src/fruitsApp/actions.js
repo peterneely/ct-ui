@@ -9,6 +9,6 @@ export function getFruits() {
   };
 }
 
-export function selectItem(index) {
-  return { type: types.SELECT_ITEM, payload: index };
+export function selectFruit(index) {
+  return { type: types.SELECT_FRUIT, payload: index };
 }
