@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import * as fruitActions from './actions';
+import Chart from './Chart';
+import List from './List';
 
 class Fruits extends Component {
   componentWillMount() {
@@ -10,20 +12,12 @@ class Fruits extends Component {
     getFruits();
   }
 
-  renderFruits = () => {
-    const { fruits } = this.props;
-    return fruits.map(({ name, favoriteFruit: fruit }, index) => (
-      <div key={index}>
-        <span>{name}</span>
-        <span>{fruit}</span>
-      </div>
-    ));
-  };
-
   render() {
+    const { actions, fruits } = this.props;
     return (
       <div>
-        {this.renderFruits()}
+        <Chart actions={actions} fruits={fruits} />
+        <List actions={actions} fruits={fruits} />
       </div>
     );
   }
