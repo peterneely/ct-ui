@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import * as fruitActions from './actions';
 import Chart from './Chart';
 import List from './List';
+import './fruits.scss'
 
 class Fruits extends Component {
   componentWillMount() {
@@ -15,9 +16,11 @@ class Fruits extends Component {
   render() {
     const { actions, fruits } = this.props;
     return (
-      <div>
-        <Chart actions={actions} fruits={fruits} />
-        <List actions={actions} fruits={fruits} />
+      <div className="fruits-container">
+        <div className="fruits-content">
+          <Chart actions={actions} fruits={fruits} />
+          <List actions={actions} fruits={fruits} />
+        </div>
       </div>
     );
   }

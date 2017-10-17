@@ -1,9 +1,11 @@
+@import 'variables';
+
 .fruit-item {
+  &:first-child {
+    border-top: $border;
+  }
+  border-bottom: $border;
   display: flex;
   justify-content: space-between;
-  width: 100%;
-}
-
-.fruit-items {
-  width: 50%
+  padding: 10px 0;
 }

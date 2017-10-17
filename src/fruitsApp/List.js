@@ -10,11 +10,9 @@ class List extends Component {
         return fruits.map((fruit, index) => {
           const { name, favoriteFruit } = fruit;
           return (
-            <div className="fruit-items">
-              <div className="fruit-item" key={index}>
-                <span>{name}</span>
-                <span>{favoriteFruit}</span>
-              </div>
+            <div className="fruit-item" key={index}>
+              <span>{name}</span>
+              <span>{favoriteFruit}</span>
             </div>
           );
         });

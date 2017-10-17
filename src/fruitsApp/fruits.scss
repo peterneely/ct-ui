@@ -1,0 +1,15 @@
+@import 'variables';
+
+.fruits-container {
+  display: flex;
+  justify-content: center;
+}
+
+.fruits-content {
+  border: $border;
+  border-radius: 4px;
+  margin: 30px;
+  padding: 30px;
+  width: 320px;
+}
+
