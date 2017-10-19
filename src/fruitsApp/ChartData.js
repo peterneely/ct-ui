@@ -30,7 +30,7 @@ export default class ChartData {
             color: createRandomColor(),
             count: parseInt(count, 10),
           }))
-          .orderBy(['count'], ['desc'])
+          .orderBy(['count', 'fruitName'], ['desc', 'asc'])
           .value();
         totalCount = orderedFruits.reduce((total, fruit) => total + fruit.count, 0);
         return { calcBarWidths, orderedFruits };
