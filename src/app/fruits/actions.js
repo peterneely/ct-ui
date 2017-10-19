@@ -12,7 +12,7 @@ export function getPeople() {
 export function selectFruit(fruitName) {
   return (dispatch, getState) => {
     const { fruits: { selectedFruit }} = getState();
-    const reselected = selectedFruit && selectedFruit === fruitName;
-    dispatch({ type: types.SELECT_FRUIT, payload: reselected ? null : fruitName });
+    const deselected = selectedFruit && selectedFruit === fruitName;
+    dispatch({ type: types.SELECT_FRUIT, payload: deselected ? null : fruitName });
   };
 }
