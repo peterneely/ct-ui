@@ -4,7 +4,12 @@ import path from 'path';
 
 export default {
   resolve: {
-    extensions: ['*', '.js', '.jsx', '.json']
+    extensions: ['*', '.js', '.jsx', '.json'],
+    alias: {
+      _api: path.resolve(__dirname, 'src/api/'),
+      _app: path.resolve(__dirname, 'src/app/'),
+      _fruits: path.resolve(__dirname, 'src/app/fruits/'),
+    },
   },
   devtool: 'cheap-module-eval-source-map', // more info:https://webpack.js.org/guides/development/#using-source-maps and https://webpack.js.org/configuration/devtool/
   entry: [

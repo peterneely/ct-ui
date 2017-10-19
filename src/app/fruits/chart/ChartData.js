@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { createRandomColor } from './colorFactory';
+import { createRandomColor } from '../../colorFactory';
 
 export default class ChartData {
   constructor(people) {
@@ -10,16 +10,16 @@ export default class ChartData {
     let orderedFruits = [];
     let totalCount = 0;
     const calcBarWidths = () => {
-      if (!totalCount) return;
       const barWidthsByFruitName = {};
+      if (!totalCount) return barWidthsByFruitName;
       orderedFruits.forEach(({ fruitName, count }) => {
-        barWidthsByFruitName[fruitName] = `${parseInt((count / totalCount) * 100)}%`;
+        barWidthsByFruitName[fruitName] = `${parseInt((count / totalCount) * 100, 10)}%`;
       });
       return barWidthsByFruitName;
     };
     return {
       parse: () => {
-        if (!this._people.length) return { calcBarWidths: () => ({}), orderedFruits: [] };
+        if (!this._people.length) return { calcBarWidths: () => ({}), orderedFruits: []};
         const fruitsByFruitName = _.groupBy(this._people, ({ favoriteFruit }) => favoriteFruit);
         const fruitNames = _.keys(fruitsByFruitName);
         const counts = _.map(fruitsByFruitName, fruits => fruits.length);

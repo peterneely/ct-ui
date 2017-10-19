@@ -1,5 +1,5 @@
-import fruitsApp from '../fruitsApp/initialState';
+import fruits from '_fruits/initialState';
 
 export default {
-  fruitsApp,
+  fruits,
 };

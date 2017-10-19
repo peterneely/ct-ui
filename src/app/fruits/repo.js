@@ -1,4 +1,4 @@
-import api from '../fruitsApi/api';
+import api from '_api';
 
 export function getPeople() {
   return new Promise(resolve => {

@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import * as fruitActions from './actions';
-import Chart from './Chart';
-import List from './List';
+import Chart from './chart/Chart';
+import List from './list/List';
 import './fruits.scss';
 
 class Fruits extends Component {
@@ -33,7 +33,7 @@ Fruits.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const { fruitsApp: { people, selectedFruit }} = state;
+  const { fruits: { people, selectedFruit }} = state;
   return { people, selectedFruit };
 }
 

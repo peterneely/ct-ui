@@ -1,7 +1,6 @@
 import ChartData from './ChartData';
 
 describe('ChartData', () => {
-
   const people = [
     { name: 'Dennis T.', favoriteFruit: 'grapes' },
     { name: 'Vlad S.', favoriteFruit: 'banana' },
