@@ -10,5 +10,9 @@ export function getPeople() {
 }
 
 export function selectFruit(fruitName) {
-  return { type: types.SELECT_FRUIT, payload: fruitName };
+  return (dispatch, getState) => {
+    const { fruitsApp: { selectedFruit }} = getState();
+    const reselected = selectedFruit && selectedFruit === fruitName;
+    dispatch({ type: types.SELECT_FRUIT, payload: reselected ? null : fruitName });
+  };
 }

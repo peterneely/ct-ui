@@ -10,6 +10,7 @@
 }
 
 .fruits-chart-bar-container {
+  background: $barBackgroundColor;
   border: $border;
   border-radius: $borderRadius;
   flex: 1.25;
@@ -17,6 +18,7 @@
 }
 
 .fruits-chart-bar {
+  border-right: $border;
   display: inline-block;
   height: 100%;
   opacity: 0.5;
@@ -39,8 +41,9 @@
   display: flex;
   line-height: 24px;
   padding: 10px 0;
+  transition: background 0.3s ease;
   &.mod-active {
-    background: $backgroundColor;
+    background: $barHighlightColor;
   }
 }
 
